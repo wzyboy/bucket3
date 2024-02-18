@@ -28,5 +28,9 @@ def get_upload_form_data():
         abort(400)
 
 
+def runserver(port: int = 5333):
+    app.run(port=port)
+
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5333)
+    runserver()

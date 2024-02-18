@@ -12,6 +12,7 @@ flask = "^3.0.2"
 
 [tool.poetry.scripts]
 s3u = "bucket3.__main__:cli"
+s3u-web = "bucket3.server:runserver"
 
 [build-system]
 requires = ["poetry-core"]
