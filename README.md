@@ -24,7 +24,7 @@ cp server.example.cfg server.cfg
 vim server.cfg
 
 # Start the web server (localhost:5333)
-s3u-web
+bucket3-web
 ```
 
 ## Special Thanks
