@@ -19,9 +19,16 @@ The service is dead-simple with no database and no built-in authentication. It i
 # Install the package
 pipx install git+https://github.com/wzyboy/bucket3
 
+# Configure the web server
+export BUCKET3_DOMAIN=example.org
+export BUCKET3_BUCKET=example-bucket
+
+# Configure AWS credentials if needed
+# https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html
+#export AWS_ACCESS_KEY_ID=AKIA...
+#export AWS_SECRET_ACCESS_KEY=...
+
 # Start the web server (localhost:5333)
-BUCKET3_DOMAIN=example.org
-BUCKET3_BUCKET=example-bucket
 bucket3-web
 ```
 
