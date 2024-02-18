@@ -63,29 +63,41 @@ class Uploader:
         # we convert the key back to the checksum and attach it to the request
         # so that AWS can verify the integrity of the file.
         checksum = Hasher.from_key(key).checksum()
-        fields = {
-            'x-amz-checksum-algorithm': 'SHA256',
-            'x-amz-checksum-sha256': checksum,
-        }
 
-        # Limit what can be done with the generated presigned request.
+        # Redirect to the newly uploaded file
+        # FIXME: AmazonS3 appends additional query parameters to the URL.
+        #redir_url = f'https://{self.domain}/{key}'
+        #fields = {
+        #    'success_action_redirect': redir_url,
+        #}
+
+        # Limit what are allowed in the form data.
         # https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-HTTPPOSTConstructPolicy.html
         # These conditions are signed against so they cannot be tempered by the
         # frontend. Boto3 already includes `bucket` and `key` in the conditions,
-        # but it won't automatically add custom fields added above.
+        # and we need to whitelist all other fields added by the frontend and
+        # the backend.
         conditions = [
-            ["starts-with", "$Content-Type", "image/"],
             {'x-amz-checksum-algorithm': 'SHA256'},
             {'x-amz-checksum-sha256': checksum},
+            #{'success_action_redirect': redir_url},
+            ['starts-with', '$Content-Type', 'image/'],
+            ['starts-with', '$x-amz-meta-filename', ''],
+            ['starts-with', '$x-amz-meta-mtime', ''],
         ]
 
         # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3/client/generate_presigned_post.html
         response = self.s3.generate_presigned_post(
             self.bucket,
             key,
-            Fields=fields,
+            #Fields=fields,
             Conditions=conditions,
         )
+
+        # Return additional data to the frontend.
+        response['bucket3'] = {
+            'domain': self.domain,
+        }
 
         # The response contains the presigned URL and required fields
         return response

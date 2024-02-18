@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bucket3</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+
+
+<main>
+<form id="uploadForm" action="" method="post" enctype="multipart/form-data">
+
+    <div id="debugInputs"></div>
+
+    <div class="main-inputs">
+        <div class="form-group">
+            <label for="fileInput">File:</label>
+            <input type="file" class="form-control-file" name="file" id="fileInput" accept="image/*" onchange="updateForm()">
+        </div>
+        <button id="uploadButton" type="submit" class="btn btn-primary" name="submit" disabled>Upload</button>
+    </div>
+
+</form>
+</main>
+
+<pre id="output"></pre>
+
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+
+</body>
+</html>
