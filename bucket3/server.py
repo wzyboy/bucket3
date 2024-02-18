@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-from pathlib import Path
-
 from flask import Flask
 from flask import abort
 from flask import request
@@ -11,7 +9,7 @@ from bucket3.uploader import Uploader
 
 
 app = Flask('bucket3')
-app.config.from_pyfile(Path(__file__).parent / 'server.cfg')
+app.config.from_prefixed_env('BUCKET3')
 uploader = Uploader(app.config['DOMAIN'], app.config['BUCKET'])
 
 

@@ -19,11 +19,9 @@ The service is dead-simple with no database and no built-in authentication. It i
 # Install the package
 pipx install git+https://github.com/wzyboy/bucket3
 
-# Edit the configuration file
-cp server.example.cfg server.cfg
-vim server.cfg
-
 # Start the web server (localhost:5333)
+BUCKET3_DOMAIN=example.org
+BUCKET3_BUCKET=example-bucket
 bucket3-web
 ```
 
