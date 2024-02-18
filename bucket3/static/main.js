@@ -9,14 +9,14 @@ form.addEventListener('submit', function(_) {
     addLinkToOutput(filename, url);
 });
 
-function addLinkToOutput(filename, url) {
+function addLinkToOutput(text, url) {
     // Get the output div element
     const outputDiv = document.getElementById('output');
 
     // Create a new anchor element
     const linkElement = document.createElement('a');
     linkElement.href = url;
-    linkElement.textContent = filename;
+    linkElement.textContent = text;
     linkElement.target = '_blank'; // Open link in a new tab
 
     // Create a list item element
@@ -71,6 +71,13 @@ function populateFormWithJSON(jsonData) {
 
     form.action = jsonData.url;
     window.bucket3 = jsonData.bucket3;
+
+    if (window.bucket3.exists) {
+        const filename = document.getElementById('fileInput').files[0].name;
+        const linkText = `${filename} (already exists)`;
+        addLinkToOutput(linkText, window.bucket3.existing_url);
+        return;
+    }
 
     for (const key in fields) {
           const value = fields[key];

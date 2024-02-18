@@ -59,6 +59,14 @@ class Uploader:
         build a web form to upload the file directly to AWS.'''
         # https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-UsingHTTPPOST.html
 
+        if self.exists(key):
+            return {
+                'bucket3': {
+                    'exists': True,
+                    'existing_url': f'https://{self.domain}/{key}',
+                }
+            }
+
         # The frontend calculates the checksum and derive the key from it. Here
         # we convert the key back to the checksum and attach it to the request
         # so that AWS can verify the integrity of the file.
