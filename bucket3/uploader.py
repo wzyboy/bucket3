@@ -20,7 +20,11 @@ class Uploader:
         try:
             self.s3.head_object(Bucket=self.bucket, Key=key)
         except ClientError as e:
-            if e.response['Error']['Code'] != '404':
+            # When an object does not exist in the bucket:
+            # - if boto3 has s3:ListBucket permission, S3 returns 404
+            # - if boto3 does not have s3:ListBucket permission, S3 returns 403
+            # https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadObject.html
+            if e.response['Error']['Code'] not in ('403', '404'):
                 raise
         else:
             return True

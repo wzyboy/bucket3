@@ -24,7 +24,7 @@ export BUCKET3_DOMAIN=example.org
 export BUCKET3_BUCKET=example-bucket
 
 # Configure AWS credentials if needed.
-# IAM permissions needed: s3:GetObject, s3:PutObject, s3:ListBucket
+# IAM permissions required: s3:GetObject + s3:PutObject
 # https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html
 #export AWS_ACCESS_KEY_ID=AKIA...
 #export AWS_SECRET_ACCESS_KEY=...

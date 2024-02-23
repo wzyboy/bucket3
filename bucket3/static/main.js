@@ -41,7 +41,7 @@ async function updateForm() { // eslint-disable-line no-unused-vars
     const hash = await crypto.subtle.digest('SHA-256', hashBuffer);
     const hashBase64 = btoa(String.fromCharCode.apply(null, new Uint8Array(hash)));
     const hashBase64URL = hashBase64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
-    const key = `${hashBase64URL}${fileExt}`
+    const key = `${hashBase64URL}${fileExt}`;
 
     // Add frontend data into the form
     const debugInputs = document.getElementById('debugInputs');
