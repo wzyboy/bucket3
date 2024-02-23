@@ -1,17 +1,23 @@
 body {
     font-family: monospace;
-    margin: 20px auto;
+    margin: 0 auto;
     max-width: 800px;
+    padding: 1em;
 }
+
 #output {
     white-space: pre-line;
     overflow-wrap: break-word;
-    margin: 4em auto;
+    margin: 1em auto;
 }
 
 form {
   display: flex;
   flex-direction: column;
+}
+
+input {
+    box-sizing: border-box;
 }
 
 form div {
