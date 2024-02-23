@@ -1,6 +1,7 @@
 const form = document.getElementById('uploadForm');
+const uploadButton = document.getElementById('uploadButton');
+
 form.addEventListener('submit', function(_) {
-    const uploadButton = document.getElementById('uploadButton');
     uploadButton.disabled = true;
 
     const filename = document.getElementById('fileInput').files[0].name;
@@ -17,7 +18,7 @@ function addLinkToOutput(text, url) {
     const linkElement = document.createElement('a');
     linkElement.href = url;
     linkElement.textContent = text;
-    linkElement.target = '_blank'; // Open link in a new tab
+    linkElement.target = '_blank';
 
     // Create a list item element
     const listItemElement = document.createElement('li');
@@ -28,7 +29,6 @@ function addLinkToOutput(text, url) {
 }
 
 async function updateForm() { // eslint-disable-line no-unused-vars
-    const uploadButton = document.getElementById('uploadButton');
     uploadButton.disabled = true;
 
     const fileInput = document.getElementById('fileInput');
@@ -58,15 +58,13 @@ async function updateForm() { // eslint-disable-line no-unused-vars
     fetch(api)
         .then(response => response.json())
         .then(data => {
-            populateFormWithJSON(data);
-            uploadButton.disabled = false;
+            addBackendData(data);
         })
         .catch(error => console.error('Error:', error));
 }
 
-function populateFormWithJSON(jsonData) {
+function addBackendData(jsonData) {
     const fields = jsonData.fields;
-    const form = document.getElementById('uploadForm');
     const debugInputs = document.getElementById('debugInputs');
 
     form.action = jsonData.url;
@@ -84,6 +82,8 @@ function populateFormWithJSON(jsonData) {
           const formGroupDiv = createDebugInput(key, value);
           debugInputs.appendChild(formGroupDiv);
     }
+
+    uploadButton.disabled = false;
 }
 
 function createDebugInput(key, value) {
