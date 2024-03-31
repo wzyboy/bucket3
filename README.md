@@ -33,6 +33,8 @@ export BUCKET3_BUCKET=example-bucket
 bucket3-web
 ```
 
+It is also possible to use `bucket3` command to upload via CLI without starting the web server.
+
 ## Special Thanks
 
 Most of the frontend code is written by ChatGPT.
